@@ -26,4 +26,9 @@ while True:
       main_screen.blit(background_image, (0, 0))    
       pygame.display.update()  #SET GAME SPEED
       clock.tick(90)
+    
 
+
+    
+#jgu
+prin("kkk")
