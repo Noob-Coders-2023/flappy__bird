@@ -28,7 +28,3 @@ while True:
       clock.tick(90)
     
 
-
-    
-#jgu
-prin("kkk")
