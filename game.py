@@ -1,4 +1,6 @@
 # Project by : Tina Amini,Zahra Ghasemi,Hasti Rezaiee :)
+import time
+
 import pygame
 import pygame
 import sys
@@ -7,10 +9,24 @@ import random
 # START PYGAME MODULES
 pygame.init()
 
+# VARIABLES
+display_width = 576
+display_height = 800
+floor_x = 0
+gravity = 0.25
+bird_movement = 0
+pipe_list = []
+game_status = True
+bg_x = 0
+bird_list_index = 0
+game_font=pygame.font.Font('assets/font/flappy.TTF',40)
+score=0
+high_score =0
+active_score= True
 
 def generate_pipe_rect():
     random_pipe = random.randrange(300, 600)
-    pipe_rect_top = pipe_image.get_rect(midbottom=(700, random_pipe - 200))
+    pipe_rect_top = pipe_image.get_rect(midbottom=(700, random_pipe -200))
     pipe_rect_bottom = pipe_image.get_rect(midtop=(700, random_pipe))
     return pipe_rect_top, pipe_rect_bottom
 
@@ -32,30 +48,41 @@ def display_pipes(pipes):
 
 
 def check_collision(pipes):
+    global active_score
     for pipe in pipes:
         if bird_image_rect.colliderect(pipe):
+            game_over_sound.play()
+            time.sleep(3)
+            active_score = True
             return False
-        if bird_image_rect.top <= -50 or bird_image_rect.bottom >= 650:
+        if bird_image_rect.top <= -50 or bird_image_rect.bottom >= 900:
+            game_over_sound.play()
+            time.sleep(3)
+            active_score = True
             return False
     return True
-
 
 def bird_animition():
     new_bird = bird_list[bird_list_index]
     new_bird_rect = new_bird.get_rect(center=(100, bird_image_rect.centery))
     return new_bird, new_bird_rect
 
+def display_score(status):
+    if status =='active':
+        text1=game_font.render(str(score),False,(255,255,255))
+        text1_rect=text1.get_rect(center=(288,100))
+        main_screen.blit(text1,text1_rect)
+    if status == 'game_over':
+        # SCORE
+        text1 = game_font.render(f'Score : {score}', False, (255, 255, 255))
+        text1_rect = text1.get_rect(center=(288, 100))
+        main_screen.blit(text1, text1_rect)
+        # HIGH SCORE
+        text2 = game_font.render(f'HighScore : {high_score}', False, (255, 255, 255))
+        text2_rect = text2.get_rect(center=(288, 850))
+        main_screen.blit(text2, text2_rect)
 
-# VARIABLES
-display_width = 576
-display_height = 800
-floor_x = 0
-gravity = 0.25
-bird_movement = 0
-pipe_list = []
-game_status = True
-bg_x = 0
-bird_list_index = 0
+
 # -------------#
 creat_pipe = pygame.USEREVENT
 creat_flap = pygame.USEREVENT +1
@@ -135,6 +162,13 @@ while True:
         # floor gravity and movement
         bird_movement += gravity
         bird_image_rect.centery += bird_movement
+        #SHOW SCORE
+
+        display_score('active')
+
+    else:
+
+        display_score('game_over')
 
     pygame.display.update()
     # SET GAME SPEED
