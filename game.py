@@ -17,17 +17,23 @@ gravity = 0.25
 bird_movement = 0
 pipe_list = []
 game_status = True
-bg_x = 0
 bird_list_index = 0
 game_font=pygame.font.Font('assets/font/flappy.TTF',40)
 score=0
 high_score =0
 active_score= True
 
-
+# ---------- #
+creat_pipe = pygame.USEREVENT
+creat_flap = pygame.USEREVENT + 1
+pygame.time.set_timer(creat_flap, 100)
+pygame.time.set_timer(creat_pipe, 1200)
+# ---------- #
+win_sound = pygame.mixer.Sound('assets/sound/smb_stomp.wav')
+game_over_sound = pygame.mixer.Sound('assets/sound/smb_mariodie.wav')
 # -------------#
 background_image = pygame.transform.scale(pygame.image.load("assets/img/bg2.png"), (576, 800))
-floor_image = pygame.transform.scale(pygame.image.load("assets/img/floor.png"), (576, 300))
+floor_image = pygame.transform.scale(pygame.image.load("assets/img/floor.png"), (576, 200))
 
 bird_image_down = pygame.transform.scale(pygame.image.load("assets/img/red_bird_down_flap.png"), (50, 50))
 bird_image_up = pygame.transform.scale(pygame.image.load("assets/img/red_bird_down_flap.png"), (50, 50))
@@ -38,6 +44,9 @@ bird_image = bird_list[bird_list_index]
 pipe_image = pygame.transform.scale(pygame.image.load('assets/img/pipe_red.png'), (100, 500))
 game_over_image=pygame.transform.scale(pygame.image.load('assets/img/message.png'), (150, 400))
 game_over_image_rect=game_over_image.get_rect(center=(288,352))
+
+
+
 def generate_pipe_rect():
     random_pipe = random.randrange(300, 600)
     pipe_rect_top = pipe_image.get_rect(midbottom=(700, random_pipe -200))
@@ -65,9 +74,13 @@ def check_collision(pipes):
     global active_score
     for pipe in pipes:
         if bird_image_rect.colliderect(pipe):
+            game_over_sound.play()
+            time.sleep(2)
             active_score=True
             return False
         if bird_image_rect.top<=-50 or bird_image_rect.bottom>=900:
+            game_over_sound.play()
+            time.sleep(2)
             active_score = True
             return False
     return True
@@ -99,6 +112,7 @@ def update_score():
     if pipe_list:
         for pipe in pipe_list:
             if 95<pipe.centerx<105 and active_score:
+                win_sound.play()
                 score+=1
                 active_score=False
             if pipe.centerx<0:
@@ -106,11 +120,7 @@ def update_score():
     if score>high_score:
         high_score=score
     return high_score
-# -------------#
-creat_pipe = pygame.USEREVENT
-creat_flap = pygame.USEREVENT +1
-pygame.time.set_timer(creat_pipe,1200)
-pygame.time.set_timer(creat_flap,100)
+
 
 # rectangle
 bird_image_rect = bird_image.get_rect(center=(100, 420))
@@ -149,41 +159,33 @@ while True:
             else:
                 bird_list_index = 0
             bird_image, bird_image_rect = bird_animition()
-    # display bg
-    bg_x -= 0.1
-    main_screen.blit(background_image, (bg_x, 0))
-    main_screen.blit(background_image, (bg_x + 576, 0))
-    if bg_x <= -576:
-        bg_x = 0
 
-    # display ground
-    floor_x -= 1
-    main_screen.blit(floor_image, (floor_x, 650))
-    main_screen.blit(floor_image, (floor_x + 576, 650))
-    if floor_x <= -576:
-        floor_x = 0
+    # DISPLAY BG2.PNG
+    main_screen.blit(background_image, (0, 0))
 
     if game_status:
-        # check collision
-        check_collision(pipe_list)
-        # display bird
+        # DISPLAY BIRD IMAGE
         main_screen.blit(bird_image, bird_image_rect)
-        # move pipes
+        # CHECK FOR COLLISIONS
+        game_status = check_collision(pipe_list)
+        # MOVE PIPES
         pipe_list = move_pipe_rect(pipe_list)
         display_pipes(pipe_list)
-        # check  for collision
-        game_status = check_collision(pipe_list)
-        # floor gravity and movement
+        # FLOOR GRAVITY AND BIRD MOVEMENT
         bird_movement += gravity
         bird_image_rect.centery += bird_movement
-        #SHOW SCORE
+        # SHOW SCORE
         update_score()
         display_score('active')
-
     else:
-
+        main_screen.blit(game_over_image, game_over_image_rect)
         display_score('game_over')
-        main_screen.blit(game_over_image,game_over_image_rect)
+        # DISPLAY FLOOR.PNG
+    floor_x -= 1
+    main_screen.blit(floor_image, (floor_x, 670))
+    main_screen.blit(floor_image, (floor_x + 576, 670))
+    if floor_x <= -576:
+        floor_x = 0
 
     pygame.display.update()
     # SET GAME SPEED
