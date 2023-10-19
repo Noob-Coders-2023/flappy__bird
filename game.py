@@ -48,12 +48,15 @@ def display_pipes(pipes):
 
 
 def check_collision(pipes):
+    global active_score
     for pipe in pipes:
         if bird_image_rect.colliderect(pipe):
+            active_score=True
             return False
         if bird_image_rect.top<=-50 or bird_image_rect.bottom>=900:
+            active_score = True
             return False
-    return True  
+    return True
 
 
 def bird_animition():
@@ -72,16 +75,20 @@ def display_score(status):
         text1_rect = text1.get_rect(center=(288, 100))
         main_screen.blit(text1, text1_rect)
         # HIGH SCORE
-        text2 = game_font.render(f'HighScore : {high_score}', False, (255, 255, 255))
+        text2 = game_font.render(
+            f'HighScore : {high_score}', False, (255, 255, 255))
         text2_rect = text2.get_rect(center=(288, 550))
         main_screen.blit(text2, text2_rect)
 
 def update_score():
-    global score,high_score
+    global score,high_score,active_score
     if pipe_list:
         for pipe in pipe_list:
-            if 95<pipe.centerx<105:
+            if 95<pipe.centerx<105 and active_score:
                 score+=1
+                active_score=False
+            if pipe.centerx<0:
+                active_score=True
     if score>high_score:
         high_score=score
     return high_score
@@ -125,6 +132,7 @@ while True:
                 pipe_list.clear()
                 bird_image_rect.center = (100, 50)
                 bird_movement = 0
+                score=0
         if event.type == pygame.MOUSEBUTTONDOWN:
             bird_movement = 0
             bird_movement -= 8
