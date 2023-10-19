@@ -48,19 +48,13 @@ def display_pipes(pipes):
 
 
 def check_collision(pipes):
-    global active_score
     for pipe in pipes:
         if bird_image_rect.colliderect(pipe):
-            game_over_sound.play()
-            time.sleep(3)
-            active_score = True
             return False
-        if bird_image_rect.top <= -50 or bird_image_rect.bottom >= 900:
-            game_over_sound.play()
-            time.sleep(3)
-            active_score = True
+        if bird_image_rect.top<=-50 or bird_image_rect.bottom>=900:
             return False
-    return True
+    return True  
+
 
 def bird_animition():
     new_bird = bird_list[bird_list_index]
@@ -79,10 +73,18 @@ def display_score(status):
         main_screen.blit(text1, text1_rect)
         # HIGH SCORE
         text2 = game_font.render(f'HighScore : {high_score}', False, (255, 255, 255))
-        text2_rect = text2.get_rect(center=(288, 850))
+        text2_rect = text2.get_rect(center=(288, 550))
         main_screen.blit(text2, text2_rect)
 
-
+def update_score():
+    global score,high_score
+    if pipe_list:
+        for pipe in pipe_list:
+            if 95<pipe.centerx<105:
+                score+=1
+    if score>high_score:
+        high_score=score
+    return high_score
 # -------------#
 creat_pipe = pygame.USEREVENT
 creat_flap = pygame.USEREVENT +1
@@ -163,7 +165,7 @@ while True:
         bird_movement += gravity
         bird_image_rect.centery += bird_movement
         #SHOW SCORE
-
+        update_score()
         display_score('active')
 
     else:
