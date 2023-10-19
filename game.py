@@ -24,6 +24,20 @@ score=0
 high_score =0
 active_score= True
 
+
+# -------------#
+background_image = pygame.transform.scale(pygame.image.load("assets/img/bg2.png"), (576, 800))
+floor_image = pygame.transform.scale(pygame.image.load("assets/img/floor.png"), (576, 300))
+
+bird_image_down = pygame.transform.scale(pygame.image.load("assets/img/red_bird_down_flap.png"), (50, 50))
+bird_image_up = pygame.transform.scale(pygame.image.load("assets/img/red_bird_down_flap.png"), (50, 50))
+bird_image_maid = pygame.transform.scale(pygame.image.load("assets/img/red_bird_mid_flap.png"), (50, 50))
+bird_list = [bird_image_up, bird_image_maid, bird_image_down]
+bird_image = bird_list[bird_list_index]
+
+pipe_image = pygame.transform.scale(pygame.image.load('assets/img/pipe_red.png'), (100, 500))
+game_over_image=pygame.transform.scale(pygame.image.load('assets/img/message.png'), (150, 400))
+game_over_image_rect=game_over_image.get_rect(center=(288,352))
 def generate_pipe_rect():
     random_pipe = random.randrange(300, 600)
     pipe_rect_top = pipe_image.get_rect(midbottom=(700, random_pipe -200))
@@ -77,7 +91,7 @@ def display_score(status):
         # HIGH SCORE
         text2 = game_font.render(
             f'HighScore : {high_score}', False, (255, 255, 255))
-        text2_rect = text2.get_rect(center=(288, 550))
+        text2_rect = text2.get_rect(center=(288, 600))
         main_screen.blit(text2, text2_rect)
 
 def update_score():
@@ -97,17 +111,7 @@ creat_pipe = pygame.USEREVENT
 creat_flap = pygame.USEREVENT +1
 pygame.time.set_timer(creat_pipe,1200)
 pygame.time.set_timer(creat_flap,100)
-# -------------#
-background_image = pygame.transform.scale(pygame.image.load("assets/img/bg2.png"), (576, 800))
-floor_image = pygame.transform.scale(pygame.image.load("assets/img/floor.png"), (576, 300))
 
-bird_image_down = pygame.transform.scale(pygame.image.load("assets/img/red_bird_down_flap.png"), (50, 50))
-bird_image_up = pygame.transform.scale(pygame.image.load("assets/img/red_bird_down_flap.png"), (50, 50))
-bird_image_maid = pygame.transform.scale(pygame.image.load("assets/img/red_bird_mid_flap.png"), (50, 50))
-bird_list = [bird_image_up, bird_image_maid, bird_image_down]
-bird_image = bird_list[bird_list_index]
-
-pipe_image = pygame.transform.scale(pygame.image.load('assets/img/pipe_red.png'), (100, 500))
 # rectangle
 bird_image_rect = bird_image.get_rect(center=(100, 420))
 # GAME DISPLAY
@@ -179,6 +183,7 @@ while True:
     else:
 
         display_score('game_over')
+        main_screen.blit(game_over_image,game_over_image_rect)
 
     pygame.display.update()
     # SET GAME SPEED
