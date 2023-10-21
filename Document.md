@@ -21,8 +21,7 @@ After that, create a directory for the game and create the following .py files i
 Now we can start coding. Let's define our game variables and functions in settings.py
 Next, let's create the main class of our game in main.py which also contains the game's main loop
 
-
-## Importing Modules
+× Importing Modules
 
 For the project, we are importing the necessary modules. We will use random for generating random numbers for our game. sys.exit from the sys module will be used to exit the program. In line 3 and 4 we are importing Pygame and the basic Pygame imports respectively.
 
