@@ -7,6 +7,4 @@ A basic Flappy Bird game made in Python. I took the assets from https://github.c
 # contribution
 It's a simple model, so I'd be very grateful if you could help me to improve the game.
 
-# demo
 
-🌅 To generate images using /Midjourney, upgrade your subscription in the /premium section
