@@ -7,8 +7,13 @@ With just a basic understanding of Python and a dash of creativity, you can harn
 ## Game Setup
 Let's start by making sure Pygame is installed on your computer. Open your terminal and install the pygame module using pip:
 
+To install the pygame module, open your terminal and run the following command:
 
-$ pip install pygame
+
+pip install pygame
+
+
+Make sure you have pip installed on your computer before running the command.
 
 
 After that, create a directory for the game and create the following .py files inside it: settings.py, main.py, world.py, game.py, pipe.py, bird.py. Also, create another folder inside the game directory and name it assets, which we'll use to store game media files.
