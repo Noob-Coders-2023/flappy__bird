@@ -13,6 +13,5 @@ $ pip install pygame
 
 After that, create a directory for the game and create the following .py files inside it: settings.py, main.py, world.py, game.py, pipe.py, bird.py. Also, create another folder inside the game directory and name it assets, which we'll use to store game media files.
 
-### Now we can start coding. Let's define our game variables and functions in settings.py.
-
-### Next, let's create the main class of our game in main.py, which also contains the game's main loop.
+Now we can start coding. Let's define our game variables and functions in settings.py
+Next, let's create the main class of our game in main.py which also contains the game's main loop
