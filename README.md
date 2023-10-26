@@ -37,7 +37,7 @@ $ mkdir_awesome_pygame_project
 $cd_awesome_pygame_project
 ```
 And after that, along with the capabilities that pygame provides us, we put the background, the ground, the bird, and the loops on the page with the coordinates we got.
-![set](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQCaoojR1JgQuMmzZqsOGw59zEljta0a1YKIjIzbeYj0jVPuDezOi_oPGwz5RH8vfamNs&usqp=CAU)
+![set](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjqyNeCIxdR33Y5gCuaQx6XPf_1SEByRsee78JsD2l-u2E4xQcERoGm4newoVkghD75bo&usqp=CAU)
 ----
 **The second stage**: 
 In the second stage, to create an illusion in the player and as if the bird is moving, the ground and the background and loops from left to right to move between
