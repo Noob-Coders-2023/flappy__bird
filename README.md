@@ -9,6 +9,10 @@ This game is one of the most popular games in which you control a bird and try n
 
 
 
+
+
+
+
 The bird can move up by pressing the space button or the right mouse button, and if no button is pressed, it will be pulled to the ground under the influence of gravity.
 When the bird passes through the loops without hitting, it gets a point, but when it hits the obstacles, the game ends.
 
@@ -16,4 +20,6 @@ When the bird passes through the loops without hitting, it gets a point, but whe
 ![gameover](https://masliamohammad.files.wordpress.com/2014/06/flappy-bird-1.gif?w=223)
 
 
-This project needs pygame to run
+
+
+### This project needs pygame to run
