@@ -9,7 +9,7 @@ import random
 
 # START PYGAME MODULES
 pygame.init()
-
+  
 # VARIABLES
 display_width = 576
 display_height = 800
