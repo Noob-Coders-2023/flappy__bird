@@ -26,7 +26,7 @@ When the bird passes through the loops without hitting, it gets a point, but whe
 **This project needs pygame to run**
 ## Insallation Dependencies
 - paython 2.5.2
-- paygame 
+- pygame 
 
 ## construction processes
 
