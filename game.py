@@ -1,5 +1,5 @@
 # Project by : Tina Amini,Zahra Ghasemi,Hasti Rezaiee :)
-# Project by : Tina Amini,Zahra Ghasemi,Hasti Rezaiee :)
+
 import time
 
 import pygame
